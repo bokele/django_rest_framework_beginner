@@ -29,6 +29,8 @@ class CustromerListView(generics.ListAPIView):
     # filter_backends = [DjangoFilterBackend]
     filter_backends = [filters.SearchFilter]
     # filterset_fields = ['firstName', 'lastName', 'phone']
+    # search_fields = ['^firstName', '^lastName', '^phone']
+    # search_fields = ['=firstName', '=lastName', '=phone']
     search_fields = ['firstName', 'lastName', 'phone']
 
 
