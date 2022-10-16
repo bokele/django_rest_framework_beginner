@@ -6,6 +6,8 @@ from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions
 
 # Create your views here.
 
@@ -26,19 +28,17 @@ class CustromerListView(generics.ListAPIView):
     querryset = Customer.objects.all()
     serializer_class = CustomerSerializer
     pagination_class = StandardResultsSetPagination
-    # filter_backends = [DjangoFilterBackend]
-    # filter_backends = [filters.OrderingFilter]
     filter_backends = [filters.SearchFilter]
-    # filterset_fields = ['firstName', 'lastName', 'phone']
-    # search_fields = ['^firstName', '^lastName', '^phone']
-    # search_fields = ['=firstName', '=lastName', '=phone']
-    # ordering_fields = ['firstName', 'lastName', 'phone']
     search_fields = ['firstName', 'lastName', 'phone']
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
 
 class CustromerDetailView(generics.RetrieveUpdateDestroyAPIView):
     querryset = Customer.objects.all()
     serializer_class = CustomerSerializer
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
 
 class OrderListView(generics.ListAPIView):
@@ -47,8 +47,12 @@ class OrderListView(generics.ListAPIView):
     pagination_class = LargeResultsSetPagination
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['product', 'qte']
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
 
 class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
     querryset = Order.objects.all()
     serializer_class = OrderSerializer
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
