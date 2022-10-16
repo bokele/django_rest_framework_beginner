@@ -4,6 +4,8 @@ from .models import Customer, Order
 from orders.serializer import OrderSerializer, CustomerSerializer
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 # Create your views here.
 
@@ -24,6 +26,14 @@ class CustromerListView(generics.ListAPIView):
     querryset = Customer.objects.all()
     serializer_class = CustomerSerializer
     pagination_class = StandardResultsSetPagination
+    # filter_backends = [DjangoFilterBackend]
+    # filter_backends = [filters.OrderingFilter]
+    filter_backends = [filters.SearchFilter]
+    # filterset_fields = ['firstName', 'lastName', 'phone']
+    # search_fields = ['^firstName', '^lastName', '^phone']
+    # search_fields = ['=firstName', '=lastName', '=phone']
+    # ordering_fields = ['firstName', 'lastName', 'phone']
+    search_fields = ['firstName', 'lastName', 'phone']
 
 
 class CustromerDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -35,6 +45,8 @@ class OrderListView(generics.ListAPIView):
     querryset = Order.objects.all()
     serializer_class = OrderSerializer
     pagination_class = LargeResultsSetPagination
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['product', 'qte']
 
 
 class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
