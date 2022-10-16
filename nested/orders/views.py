@@ -27,10 +27,12 @@ class CustromerListView(generics.ListAPIView):
     serializer_class = CustomerSerializer
     pagination_class = StandardResultsSetPagination
     # filter_backends = [DjangoFilterBackend]
+    # filter_backends = [filters.OrderingFilter]
     filter_backends = [filters.SearchFilter]
     # filterset_fields = ['firstName', 'lastName', 'phone']
     # search_fields = ['^firstName', '^lastName', '^phone']
     # search_fields = ['=firstName', '=lastName', '=phone']
+    # ordering_fields = ['firstName', 'lastName', 'phone']
     search_fields = ['firstName', 'lastName', 'phone']
 
 
