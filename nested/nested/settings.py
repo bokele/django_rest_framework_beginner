@@ -28,7 +28,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,6 +40,7 @@ INSTALLED_APPS = [
 
     'orders',
     'rest_framework',
+    'django-filter',
 ]
 
 REST_FRAMEWORK = {
